@@ -1,6 +1,6 @@
 # Gesture-Controlled Audio Plugin (VST3)
 
-## By: Sawyer Bowerman and Alicia Cao
+### By: Sawyer Bowerman and Alicia Cao
 
 A JUCE-based VST3 audio plugin that lets you control audio effects using hand gestures sent over OSC (Open Sound Control). Inspired by Imogen Heap's glove tech — no wearable hardware needed, just a webcam and gesture classifier.
 
