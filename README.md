@@ -1,7 +1,7 @@
 # Gesture-Controlled Audio Plugin (VST3)
 
 ### By: Sawyer Bowerman and Alicia Cao
-
+---
 Rigid is a JUCE-based VST3 audio plugin that lets you control audio effects using hand gestures sent over OSC (Open Sound Control). Inspired by Imogen Heap's glove tech — no wearable hardware needed, just a webcam and gesture classifier.
 
 OSC (Open Sound Control) is a protocol used to send real-time messages between devices or software over a network. In the context of this project, OSC is used to send hand gesture data from a Python script (which processes webcam input) to the JUCE-based audio plugin. For example, when the script detects a “fist” gesture, it sends an OSC message to the plugin, which then responds by changing its gain or applying granular audio effects — all in sync with the music software.
