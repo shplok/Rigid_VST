@@ -20,7 +20,7 @@ OSC (Open Sound Control) is a protocol used to send real-time messages between d
 ## Installation
 
 ### 1. Download VST
-Download the `Rigid_test.vst3` file from the [MainBranch]([https://github.com/shplok/RigidVST/releases](https://github.com/shplok/Rigid_VST/blob/main/rigid_test.vst3)) section.
+Download the `Rigid_test.vst3` file from the [MainBranch](https://github.com/shplok/Rigid_VST/blob/main/rigid_test.vst3) section.
 
 ### 2. Place the Plugin
 
