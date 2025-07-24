@@ -10,7 +10,7 @@ osc_client = SimpleUDPClient(OSC_IP, OSC_PORT)
 # ========== MediaPipe Setup ==========
 mp_hands = mp.solutions.hands
 mp_draw = mp.solutions.drawing_utils
-hands = mp_hands.Hands(max_num_hands=1, min_detection_confidence=0.7)
+hands = mp_hands.Hands(max_num_hands=2, min_detection_confidence=0.7)
 
 # ========== Gesture Helpers ==========
 def get_finger_curls(landmarks):
