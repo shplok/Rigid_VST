@@ -73,17 +73,29 @@ while cap.isOpened():
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = hands.process(img_rgb)
 
-    if results.multi_hand_landmarks:
-        for hand_landmarks in results.multi_hand_landmarks:
+    if results.multi_hand_landmarks and results.multi_handedness:
+        for idx, (hand_landmarks, handedness) in enumerate(zip(results.multi_hand_landmarks, results.multi_handedness)):
             mp_draw.draw_landmarks(img, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
             gesture, direction, orientation = classify_gesture(hand_landmarks.landmark)
-            cv2.putText(img, f'Gesture: {gesture}', (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            cv2.putText(img, f'Direction: {direction}', (10, 60),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
-            cv2.putText(img, f'Orientation: {orientation}', (10, 90),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            label = handedness.classification[0].label[0]  # 'L' or 'R'
+
+            x_offset = 10 if label == 'L' else 350 
+            y_offset = 30
+
+            cv2.putText(img, f'{label}: Gesture: {gesture}', (x_offset, y_offset),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (65, 255, 0), 2)
+            cv2.putText(img, f'{label}: Direction: {direction}', (x_offset, y_offset + 25),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
+            cv2.putText(img, f'{label}: Orientation: {orientation}', (x_offset, y_offset + 45),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
+
+        # Send OSC only if gesture has changed
+        if gesture != last_gesture:
+            osc_client.send_message("/gesture", gesture)
+            osc_client.send_message("/hand/direction", direction)
+            osc_client.send_message("/hand/orientation", orientation)
+            last_gesture = gesture
 
             # Send OSC only if gesture has changed
             if gesture != last_gesture:
